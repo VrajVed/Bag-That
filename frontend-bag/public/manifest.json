@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Bag That",
+  "version": "1.0.0",
+  "description": "An extension to help you save money by finding coupons and deals.",
+  "icons": {
+    "128": "icon-128.png"
+  },
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "icon-128.png"
+  },
+  "permissions": []
+}
