@@ -8,7 +8,7 @@
     chrome.runtime.sendMessage({
       type: "API_REQUEST",
       method: "GET",
-      url: `https://your-backend-domain.com/api/find-coupons?product_id=${encodeURIComponent(currentDomain)}`
+      url: `http://127.0.0.1:5000/api/find-coupons?product_id=${encodeURIComponent(currentDomain)}`
     }, (response) => {
       if (response.success) {
         console.log("Coupons for domain:", response.data);
