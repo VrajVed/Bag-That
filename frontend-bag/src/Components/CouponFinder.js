@@ -116,35 +116,37 @@ const CouponFinder = () => {
           <p className="text-purple-500 text-lg font-medium">No coupons available for this website</p>
         </div>
       ) : (
-        <div className="space-y-4 mt-[390%] ">
-          {getCouponsForWebsite().map((coupon, index) => (
-            <div 
-              key={index}
-              className="p-4 rounded-lg bg-gradient-to-r from-yellow-400/10 to-green-500/10 border border-white/10"
-            >
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-yellow-400 font-bold text-lg">
-                  {coupon.discount}
-                </span>
-                <button 
-                  onClick={() => handleCopy(coupon.code, index)}
-                  className={`px-3 py-1 rounded font-medium transition-all duration-200 ${
-                    copiedIndex === index
-                      ? 'bg-green-500 text-white'
-                      : 'bg-gradient-to-r from-yellow-400 to-green-500 text-gray-900 hover:opacity-90'
-                  }`}
-                >
-                  {copiedIndex === index ? 'Copied!' : 'Copy'}
-                </button>
+        <div className="h-[400px] overflow-y-auto pr-2">
+          <div className="space-y-2">
+            {getCouponsForWebsite().map((coupon, index) => (
+              <div 
+                key={index}
+                className="p-3 rounded-lg bg-gradient-to-r from-yellow-400/10 to-green-500/10 border border-white/10"
+              >
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-yellow-400 font-bold text-base">
+                    {coupon.discount}
+                  </span>
+                  <button 
+                    onClick={() => handleCopy(coupon.code, index)}
+                    className={`px-2 py-0.5 rounded font-medium text-sm transition-all duration-200 ${
+                      copiedIndex === index
+                        ? 'bg-green-500 text-white'
+                        : 'bg-gradient-to-r from-yellow-400 to-green-500 text-gray-900 hover:opacity-90'
+                    }`}
+                  >
+                    {copiedIndex === index ? 'Copied!' : 'Copy'}
+                  </button>
+                </div>
+                <code className="block bg-white/10 px-2 py-0.5 rounded text-white font-mono text-sm mb-1">
+                  {coupon.code}
+                </code>
+                <p className="text-white text-xs">
+                  {coupon.description}
+                </p>
               </div>
-              <code className="block bg-white/10 px-2 py-1 rounded text-white font-mono mb-2">
-                {coupon.code}
-              </code>
-              <p className="text-white text-sm">
-                {coupon.description}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
     </div>
