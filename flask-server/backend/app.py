@@ -26,7 +26,7 @@ from api.predictions import PricePredictionResource
 from api.sellers import SellerCheckResource
 
 # Register endpoints
-api.add_resource(PriceComparisonResource, '/api/compare-price')
+api.add_resource(PriceComparisonResource, '/api/compare-price/<path:url>')
 api.add_resource(CouponFinderResource, "/api/find-coupons/<string:store_name>")
 api.add_resource(PricePredictionResource, '/api/predict-price')
 api.add_resource(SellerCheckResource, '/api/seller-check')
