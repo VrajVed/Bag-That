@@ -129,7 +129,7 @@ class CouponFinderResource(Resource):
     def get(self, store_name):
        
        for coupon in coupons:
-           if coupon.get("store", "").lower() == store_name.lower():        # RETURNS COUPONS WITH STORE NAME
+           if coupon.get("store").lower() == store_name.lower():        # RETURNS COUPONS WITH STORE NAME
                response.append({
                    "code": coupon.get("code"),
                     "description": coupon.get("description"),
