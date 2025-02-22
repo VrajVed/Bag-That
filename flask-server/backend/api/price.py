@@ -1,4 +1,5 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource, reqparse, request
+from flask import jsonify
 import logging
 
 logger = logging.getLogger(__name__)
@@ -20,4 +21,13 @@ class PriceComparisonResource(Resource):
             ]
         }
         logger.info("Price comparison for product %s", args['product_id'])
+
         return response, 200
+    
+    def post(self, url):
+        data = request.get_json()
+        url = data.get("url")
+        if url:
+            return jsonify({"message": "URL received", "url": url})
+        return jsonify({"error": "No URL provided"}), 400
+        
