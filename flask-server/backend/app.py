@@ -35,5 +35,10 @@ api.add_resource(SellerCheckResource, '/api/seller-check')
 def index():
     return jsonify({"message": "BagThat AI Extension API is running."})
 
+@app.route('/test')
+def test():
+    return {"test": ["test1", "test2", "test3"]}
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=app.config["DEBUG"])
