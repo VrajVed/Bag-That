@@ -27,13 +27,23 @@ from api.sellers import SellerCheckResource
 
 # Register endpoints
 api.add_resource(PriceComparisonResource, '/api/compare-price')
-api.add_resource(CouponFinderResource, '/api/find-coupons/<string:store_name>')
+api.add_resource(CouponFinderResource, "/api/find-coupons/<string:store_name>")
 api.add_resource(PricePredictionResource, '/api/predict-price')
 api.add_resource(SellerCheckResource, '/api/seller-check')
 
 @app.route('/')
 def index():
     return jsonify({"message": "BagThat AI Extension API is running."})
+
+@app.route('/test') # This request is accepted by server
+def test():
+    return {"test": ["test1", "test2", "test3"]}
+
+
+
+# Print all registered routes
+with app.app_context():   #This is for debugging
+    print(app.url_map)  
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=app.config["DEBUG"])

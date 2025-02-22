@@ -119,6 +119,7 @@ coupons = [
             {"store": "flipkart.com", "code": "FLYSEP", "description": "3500Rs off flights","verified": False }, 
         ]
 
+response =[]
 
 def storeNotFound(store_name):
     if store_name not in coupons:
@@ -126,28 +127,16 @@ def storeNotFound(store_name):
 
 class CouponFinderResource(Resource):
     def get(self, store_name):
-        parser = reqparse.RequestParser()
-        parser.add_argument('store', type=str, required=True, help="This isn't recognized as a valid store")
-        args = parser.parse_args()
-
-        # Stub logic: query a coupons database or third-party API.
-
-
-        logger.info("Coupons found for the store %s", args['store'])
-        return {"store": args['store'], "coupons": coupons["store": store_name]}, 200 
+       
+       for coupon in coupons:
+           if coupon.get("store").lower() == store_name.lower():        # RETURNS COUPONS WITH STORE NAME
+               response.append({
+                   "code": coupon.get("code"),
+                    "description": coupon.get("description"),
+                    "verified": coupon.get("verified", False)
+                },)
+       return response
 
     def post(self):
         # Allow users to submit new coupons.
-        parser = reqparse.RequestParser()
-        parser.add_argument('store', type=str, required=True, help='Store name is required')
-        parser.add_argument('code', type=str, required=True, help='Coupon code is required')
-        parser.add_argument('description', type=str, required=True, help='Description is required')
-        args = parser.parse_args()
-
-        # Here, you would insert coupon data into the database.
-        # For the demo, we simply log and return success.
-        logger.info("New coupon submitted for product %s: %s", args['product_id'], args['code'])
-
-        return {"message": "Coupon submitted successfully."}, 201
-    
-
+        pass
