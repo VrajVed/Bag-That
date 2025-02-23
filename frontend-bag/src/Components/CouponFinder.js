@@ -33,6 +33,19 @@ const CouponFinder = () => {
   const [copiedIndex, setCopiedIndex] = useState(null);
   const supportedWebsites = ['amazon', 'ebay', 'walmart','flipkart']; // Example supported websites
   
+  /*This is the Domain extraction function like amazon.com or .in etc */
+  const getDomainFromURL = (url) => {
+    try {
+      const parsedURL = new URL(url);
+      const hostname = parsedURL.hostname.replace('www.', '').toLowerCase();
+      // console.log('Extracted Domain:', hostname); 
+      return hostname;
+    } catch (error) {
+      console.error('Invalid URL:', error);
+      return '';
+    }
+  };
+
   useEffect(() => {
     const fetchCurrentTabURL = async () => {
       try {
@@ -60,13 +73,15 @@ const CouponFinder = () => {
         const currentURL = response.url;
         console.log('Current Tab URL:', currentURL);
         
-        // Parse the URL to extract the hostname
+       
+        const domain = getDomainFromURL(currentURL); //hotplate this is the domain of the current url u have to call the api with this domain
         const url = new URL(currentURL);
         const hostname = url.hostname.replace('www.', '').toLowerCase();
         const websiteName = hostname.split('.')[0];
         
         console.log('Detected website:', websiteName);
         setCurrentWebsite(websiteName);
+        console.log(domain);
         
         // Check if the website is supported
         setIsSupportedWebsite(supportedWebsites.includes(websiteName));
@@ -77,6 +92,13 @@ const CouponFinder = () => {
     
     fetchCurrentTabURL();
   }, []);
+
+ 
+
+ 
+  
+  
+  
   
   const getCouponsForWebsite = () => {
     return defaultCoupons[currentWebsite] || [];
