@@ -91,6 +91,7 @@ const CouponFinder = () => {
     };
     
     fetchCurrentTabURL();
+     // eslint-disable-next-line 
   }, []);
 
  
