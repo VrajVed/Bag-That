@@ -34,17 +34,17 @@ const CouponFinder = () => {
   const supportedWebsites = ['amazon', 'ebay', 'walmart','flipkart']; // Example supported websites
   
   /*This is the Domain extraction function like amazon.com or .in etc */
-  const getDomainFromURL = (url) => {
-    try {
-      const parsedURL = new URL(url);
-      const hostname = parsedURL.hostname.replace('www.', '').toLowerCase();
-      // console.log('Extracted Domain:', hostname); 
-      return hostname;
-    } catch (error) {
-      console.error('Invalid URL:', error);
-      return '';
-    }
-  };
+  // const getDomainFromURL = (url) => {
+  //   try {
+  //     const parsedURL = new URL(url);
+  //     const hostname = parsedURL.hostname.replace('www.', '').toLowerCase();
+  //     // console.log('Extracted Domain:', hostname); 
+  //     return hostname;
+  //   } catch (error) {
+  //     console.error('Invalid URL:', error);
+  //     return '';
+  //   }
+  // };
 
   useEffect(() => {
     const fetchCurrentTabURL = async () => {
@@ -52,7 +52,7 @@ const CouponFinder = () => {
         if (!chrome || !chrome.runtime || !chrome.runtime.sendMessage) {
           throw new Error('Chrome runtime API is not available');
         }
-
+  
         console.log('Sending message to background script...');
         const response = await new Promise((resolve) => {
           chrome.runtime.sendMessage({ action: 'getTabURL' }, (response) => {
@@ -65,44 +65,59 @@ const CouponFinder = () => {
             }
           });
         });
-        
+  
         if (response.error) {
           throw new Error(response.error);
         }
-        
+  
         const currentURL = response.url;
         console.log('Current Tab URL:', currentURL);
-        
-       
-        const domain = getDomainFromURL(currentURL); //hotplate this is the domain of the current url u have to call the api with this domain
+  
+        // Extract the full domain from the current URL
+        const getDomainFromURL = (url) => {
+          const domain = new URL(url).hostname; // Extracts the hostname
+          const parts = domain.split(".");
+          if (parts.length > 2) {
+            // Removes "www" or any subdomain
+            return parts.slice(-2).join(".");
+          }
+          return domain;
+        };
+  
+        const domain = getDomainFromURL(currentURL);
+        console.log('Full Domain:', domain);
+  
+        // Update the website name and supported status
         const url = new URL(currentURL);
         const hostname = url.hostname.replace('www.', '').toLowerCase();
         const websiteName = hostname.split('.')[0];
-        
+  
         console.log('Detected website:', websiteName);
         setCurrentWebsite(websiteName);
-        console.log(domain);
-        
+        console.log('Domain sent to API:', domain);
+  
         // Check if the website is supported
-        setIsSupportedWebsite(supportedWebsites.includes(websiteName));  // amazon.com
+        setIsSupportedWebsite(supportedWebsites.includes(websiteName));
+  
+        // Send the full domain to the backend
+        await fetch(`http://127.0.0.1:5000/api/find-coupons/${domain}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          },
+        });
+  
+        console.log("URL sent to backend successfully");
       } catch (error) {
         console.error('Error fetching current tab URL:', error);
       }
-
-      await fetch(`http://127.0.0.1:5000/api/find-coupon/${domain}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        },
-      });
-
-      console.log("URL sent to backend successfully");
-
     };
-    
+  
     fetchCurrentTabURL();
-     // eslint-disable-next-line 
+    // eslint-disable-next-line
   }, []);
+  
+  
 
  
 
