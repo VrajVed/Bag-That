@@ -6,7 +6,7 @@ const CouponFinder = () => {
   const [isSupportedWebsite, setIsSupportedWebsite] = useState(false);
   const [coupons, setCoupons] = useState([]); // State to store fetched coupons
   const [copiedIndex, setCopiedIndex] = useState(null);
-  const supportedWebsites = ['amazon', 'ebay', 'walmart', 'flipkart','target']; // Example supported websites
+  const supportedWebsites = ['amazon', 'ebay', 'walmart', 'flipkart','target','udemy']; // Example supported websites
 
   useEffect(() => {
     const fetchCurrentTabURL = async () => {
