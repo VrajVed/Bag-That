@@ -119,7 +119,7 @@ coupons = [
             {"store": "flipkart.com", "code": "FLYSEP", "description": "3500Rs off flights","verified": False }, 
         ]
 
-response =[]
+
 
 def storeNotFound(store_name):
     if store_name not in coupons:
@@ -128,6 +128,7 @@ def storeNotFound(store_name):
 class CouponFinderResource(Resource):
     def get(self, store_name):
        
+       response = []
        for coupon in coupons:
            if coupon.get("store").lower() == store_name.lower():        # RETURNS COUPONS WITH STORE NAME
                response.append({
