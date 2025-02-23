@@ -84,10 +84,20 @@ const CouponFinder = () => {
         console.log(domain);
         
         // Check if the website is supported
-        setIsSupportedWebsite(supportedWebsites.includes(websiteName));
+        setIsSupportedWebsite(supportedWebsites.includes(websiteName));  // amazon.com
       } catch (error) {
         console.error('Error fetching current tab URL:', error);
       }
+
+      await fetch(`http://127.0.0.1:5000/api/find-coupon/${domain}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+      });
+
+      console.log("URL sent to backend successfully");
+
     };
     
     fetchCurrentTabURL();
