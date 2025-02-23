@@ -100,7 +100,7 @@ const CouponFinder = () => {
         setIsSupportedWebsite(supportedWebsites.includes(websiteName));
   
         // Send the full domain to the backend
-        await fetch(`http://127.0.0.1:5000/api/find-coupon/${domain}`, {
+        await fetch(`http://127.0.0.1:5000/api/find-coupons/${domain}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json"
