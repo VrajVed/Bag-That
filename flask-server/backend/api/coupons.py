@@ -117,6 +117,16 @@ coupons = [
             {"store": "flipkart.com", "code": "HDFCEMI", "description": "Save on flipkart flight bookings with code","verified": False },
             {"store": "flipkart.com", "code": "FLYBSD", "description": "Save 10% on hdfc bank credit cards","verified": False },
             {"store": "flipkart.com", "code": "FLYSEP", "description": "3500Rs off flights","verified": False }, 
+
+            # UDEMY.COM
+
+            {"store": "udemy.com", "code": "KEEPLEARNING", "description": "something","verified": False },
+            {"store": "udemy.com", "code": "UDEAFFHP12025", "description": "something","verified": True },
+            {"store": "udemy.com", "code": "NVDIN35", "description": "Around 80% off","verified": True },
+            {"store": "udemy.com", "code": "GENAISALE24", "description": "Around 85% off","verified": True },
+            {"store": "udemy.com", "code": "UDEAFFLP12025", "description": "Around 80% off","verified": True },
+            {"store": "udemy.com", "code": "RISKAGGREGATION2502", "description": "25% Off Project Portfolio Risk Aggregation Process Course Orders","verified": True },
+
         ]
 
 
